@@ -1,7 +1,5 @@
 package lasagna
 
-import "fmt"
-
 // TODO: define the 'PreparationTime()' function
 func PreparationTime(layers []string, averagePrepTime int) int{
 	var multiplier int
@@ -32,12 +30,20 @@ func Quantities(layers []string) (int, float64){
 }
 
 // TODO: define the 'AddSecretIngredient()' function
-func AddSecretIngredient(myList []string, friendsList []string) {
-	myList = myList[0:len(myList)-1]
-	myList = append(myList,friendsList[len(friendsList)-1])
+func AddSecretIngredient(friendsList []string, myList []string) {
+	myList = append(myList[0:len(myList)-1],friendsList[len(friendsList)-1])
 }
 
 // TODO: define the 'ScaleRecipe()' function
-func ScaleRecipe(quant []float64, portions int) []float64 {
-	return []float64{2.0}
+func ScaleRecipe(quantities []float64, portions int) []float64 {
+	copyOfOriginal := make([]float64, len(quantities))
+
+	copy(copyOfOriginal, quantities)
+
+	// Halve quantities
+	for j := 0; j < len(copyOfOriginal); j++ {
+		copyOfOriginal[j] = (copyOfOriginal[j] * 0.5) * float64(portions)
+	}
+
+	return copyOfOriginal
 }
