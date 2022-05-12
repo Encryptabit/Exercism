@@ -1,6 +1,9 @@
 package parsinglogfiles
 
-import "regexp"
+import (
+	"fmt"
+	"regexp"
+)
 
 func IsValidLine(text string) bool {
 
@@ -34,13 +37,40 @@ func SplitLogLine(text string) []string {
 }
 
 func CountQuotedPasswords(lines []string) int {
-	panic("Please implement the CountQuotedPasswords function")
+	passwordPattern := regexp.MustCompile(`(\"passWord\")|\".+(password)\"`)
+	var count int
+
+	for _,v := range lines {
+		if(passwordPattern.MatchString(v)) {
+			count++
+		}
+	}
+
+	return count
 }
 
 func RemoveEndOfLineText(text string) string {
-	panic("Please implement the RemoveEndOfLineText function")
+	lineToDelete := regexp.MustCompile(`end-of-line\d+`)
+
+	return lineToDelete.ReplaceAllString(text,"")
 }
 
 func TagWithUserName(lines []string) []string {
-	panic("Please implement the TagWithUserName function")
+	nameToTagWith := regexp.MustCompile(`(User\s+)(\w+)`)
+	var finalResult []string
+
+	for _,v := range lines {
+		matches := nameToTagWith.FindStringSubmatch(v)
+		var nameToPrefix string
+
+		if(len(matches) > 0) {
+			nameToPrefix =  fmt.Sprintf("[USR] %s %s", matches[2], v)
+		} else {
+			nameToPrefix = v
+		}
+
+		finalResult = append(finalResult,nameToPrefix)
+	}
+
+	return finalResult
 }
