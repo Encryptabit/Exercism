@@ -19,6 +19,8 @@
 //
 // Good luck with that door policy!
 
+import { type } from "os";
+
 /**
  * Respond with the correct character, given the line of the
  * poem, if this were said at the front door.
@@ -27,7 +29,7 @@
  * @returns {string}
  */
 export function frontDoorResponse(line) {
-  throw new Error('Remove this line and implement the function');
+  return (typeof line === 'string' ? line[0] : '');
 }
 
 /**
@@ -38,7 +40,9 @@ export function frontDoorResponse(line) {
  * @returns {string} the front door password
  */
 export function frontDoorPassword(word) {
-  throw new Error('Remove this line and implement the function');
+  word = word.trim();
+
+  return (typeof word === 'string') ? word[0].toUpperCase() + word.slice(1,word.length).toLowerCase() : '';
 }
 
 /**
@@ -49,7 +53,9 @@ export function frontDoorPassword(word) {
  * @returns {string}
  */
 export function backDoorResponse(line) {
-  throw new Error('Remove this line and implement the function');
+  line = line.trim();
+  
+  return (typeof line === 'string') ? line[line.length - 1] : '';
 }
 
 /**
@@ -60,5 +66,7 @@ export function backDoorResponse(line) {
  * @returns {string} the back door password
  */
 export function backDoorPassword(word) {
-  throw new Error('Remove this line and implement the function');
+  word = word.trim();
+  
+  return `${frontDoorPassword(word)}, please`;
 }
