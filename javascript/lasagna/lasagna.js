@@ -19,7 +19,6 @@ export function preparationTimeInMinutes(numberOfLayers) {
 export function totalTimeInMinutes(numberOfLayers, actualMinutesInOven) {
   // 4. Calculate the total working time in minutes
   // sum of preperationTimeInMinutes() and remainingMinutesInOven()
-
  var total = preparationTimeInMinutes(numberOfLayers) + actualMinutesInOven;
 
  return total;
